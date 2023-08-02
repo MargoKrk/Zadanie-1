@@ -1,23 +1,25 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
-import typesHTML from './types'
+// import { setupCounter } from './counter.js'
+import { typesHTML, categoriesHTML } from './general'
 
 
 document.querySelector('#app').innerHTML = `
   <div>
-  <div id="typesList">
-  <h2>Typy</h2>
-  </div>
+    <div id="typesList"></div>
+    <div id="categories"></div>
   </div>
 `
 
 const typesList = document.getElementById("typesList")
-
 typesList.innerHTML = typesHTML
 
-setupCounter(document.querySelector('#counter'))
+const categories = document.getElementById("categories")
+categories.innerHTML = categoriesHTML
+
+
+// setupCounter(document.querySelector('#counter'))
 
 
 {/* <a href="https://vitejs.dev" target="_blank">
