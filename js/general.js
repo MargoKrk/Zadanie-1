@@ -1,23 +1,29 @@
-import types from "../data/types.json"
-import categories from "../data/categories.json"
+import types from "../data/types.json";
+import categories from "../data/categories.json";
 
 let typesHTML = "";
 
- const TYPES = types.forEach(type => {
+types.sort(function (a, b) {
+  return a.name.localeCompare(b.name);
+});
 
-        typesHTML += `<button class="type-button">${type.name}</button>`
-    })
+categories.sort(function (a, b) {
+  return a.name.localeCompare(b.name);
+});
+
+// console.log(newArray);
+
+const TYPES = types.forEach((type) => {
+  typesHTML += `<button class="type-button">${type.name}</button>`;
+});
 
 let categoriesHTML = "";
 
-
-const CATEGORIES = categories.forEach(category => {
-
-    categoriesHTML += `<div class="categoryCard">
+const CATEGORIES = categories.forEach((category) => {
+  categoriesHTML += `<div class="categoryCard">
     <img src="${category.iconUrl}" alt="${category.name}" width="64" height="64"> 
     <p>${category.name}</p>
-    </div>`
-})
+    </div>`;
+});
 
-
-export { typesHTML, categoriesHTML } 
+export { typesHTML, categoriesHTML };
