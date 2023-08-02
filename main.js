@@ -1,8 +1,5 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-// import { setupCounter } from './counter.js'
-import { typesHTML, categoriesHTML } from './general'
+import './css/style.css'
+import { typesHTML, categoriesHTML } from './js/general'
 
 
 document.querySelector('#app').innerHTML = `

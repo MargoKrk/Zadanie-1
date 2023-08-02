@@ -1,5 +1,5 @@
-import types from "./types.json"
-import categories from "./categories.json"
+import types from "../data/types.json"
+import categories from "../data/categories.json"
 
 let typesHTML = "";
 
