@@ -1,13 +1,14 @@
 * {
- box-sizing: border-box;
- font-family: 'Roboto', sans-serif; 
- font-weight: 400;
- font-size: 14px;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  background-color: #F6F5F1;
+  background-color: #f6f5f1;
   margin: 0;
 }
 
@@ -16,7 +17,7 @@ html, body {
   justify-content: center;
 }
 
-.main {
+.content {
   width: max(60%, 864px);
   display: flex;
   gap: 16px;
@@ -35,7 +36,7 @@ html, body {
 }
 
 .type-button {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 160px;
   height: 42px;
   text-align: left;
@@ -44,11 +45,11 @@ html, body {
 }
 
 .type-button:hover {
-  background-color: #DEF2DD;
+  background-color: #def2dd;
 }
 
 .type-button:active {
-  background-color: #46AA42;
+  background-color: #46aa42;
 }
 
 #categories {
@@ -58,7 +59,7 @@ html, body {
 }
 
 .categoryCard {
-  background-color: #FFF;
+  background-color: #fff;
   width: 160px;
   height: 160px;
   display: flex;
@@ -66,7 +67,6 @@ html, body {
   justify-content: center;
   align-items: center;
 }
-
 
 /* h1 {
   font-size: 3.2em;
