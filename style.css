@@ -1,39 +1,74 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+* {
+ box-sizing: border-box;
+ font-family: 'Roboto', sans-serif; 
+ font-weight: 400;
+ font-size: 14px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+html, body {
   height: 100%;
   background-color: #F6F5F1;
-  /* margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh; */
+  margin: 0;
 }
 
-h1 {
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: max(60%, 864px);
+  display: flex;
+  gap: 16px;
+}
+
+.typesCard {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+#typesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.type-button {
+  background-color: #FFFFFF;
+  width: 160px;
+  height: 42px;
+  text-align: left;
+  border-radius: 8px;
+  border: none;
+}
+
+.type-button:hover {
+  background-color: #DEF2DD;
+}
+
+.type-button:active {
+  background-color: #46AA42;
+}
+
+#categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.categoryCard {
+  background-color: #FFF;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
@@ -96,4 +131,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

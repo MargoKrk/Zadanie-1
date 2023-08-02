@@ -6,9 +6,15 @@ import { typesHTML, categoriesHTML } from './general'
 
 
 document.querySelector('#app').innerHTML = `
-  <div>
-    <div id="typesList"></div>
-    <div id="categories"></div>
+  <div class="main">
+    <div class="typesCard">
+      <h2>Typy</h2>
+      <div id="typesList"></div>
+    </div>
+    <div class="categoriesCards">
+      <h2>Kategorie</h2>
+      <div id="categories"></div>
+    </div>
   </div>
 `
 
