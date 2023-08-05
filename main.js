@@ -19,12 +19,19 @@ const typesList = document.getElementById("typesList");
 const categoriesList = document.getElementById("categories");
 
 let typesHTML = "";
+let categoriesHTML = "";
 
-types$.then((types) => {
-  postTypes(types);
-  types.sort(function (a, b) {
+Promise.all([types$, categories$]).then((values) => {
+  values[0].sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
+  values[1].sort(function (a, b) {
+    return a.name.localeCompare(b.name);
+  });
+  postTypes(values[0]);
+  postCategory(values[1]);
+  console.log(values[0]);
+  console.log(values[1]);
 });
 
 function postTypes(types) {
@@ -33,12 +40,6 @@ function postTypes(types) {
     typesList.innerHTML += typesHTML;
   });
 }
-
-let categoriesHTML = "";
-
-categories$.then((categories) => {
-  postCategory(categories);
-});
 
 function postCategory(categories) {
   categories.forEach((category) => {
