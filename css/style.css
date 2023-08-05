@@ -48,7 +48,7 @@ body {
   background-color: #def2dd;
 }
 
-.type-button:active {
+.selected {
   background-color: #46aa42;
 }
 
