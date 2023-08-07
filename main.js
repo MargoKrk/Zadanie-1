@@ -6,6 +6,10 @@ document.querySelector("#app").innerHTML = `
     <div class="typesCard">
       <h2>Typy</h2>
       <div id="typesList"></div>
+      <div class="checkbox-div">
+      <input type="checkbox" id="vege-switch">
+      <label for="vege">Vege only</label>
+      </div>
     </div>
     <div class="categoriesCards">
       <h2>Kategorie</h2>
