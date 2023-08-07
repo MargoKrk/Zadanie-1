@@ -35,26 +35,27 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
 
   allButtons.forEach((currentButton) => {
     currentButton.addEventListener("click", function (e) {
-      currentButton.classList.toggle("selected");
-
       const filterTarget = e.target.dataset.filter;
 
-      const newValue = categories.filter((elem) => {
-        console.log(elem);
+      if (!document.querySelector(".selected")) {
+        e.target.classList.add("selected");
+      } else {
+        document.querySelector(".selected").classList.remove("selected");
+        e.target.classList.add("selected");
+      }
 
-        return elem.type == filterTarget;
+      const filtredCategory = categories.filter((elem) => {
+        return elem.type === filterTarget;
       });
 
-      console.log(newValue);
-
-      postCategory(newValue);
+      postCategory(filtredCategory);
     });
   });
 });
 
 function postTypes(types) {
   types.forEach((type) => {
-    typesHTML = `<button class="type-button" data-filter="${type.id}">${type.name}</button>`;
+    typesHTML = `<button class="type-button" id="${type.id}" data-filter="${type.id}">${type.name}</button>`;
     typesList.innerHTML += typesHTML;
   });
 }
@@ -69,22 +70,4 @@ function postCategory(categories) {
     </div>`;
     categoriesList.innerHTML += categoriesHTML;
   });
-}
-
-// setupCounter(document.querySelector('#counter'))
-
-{
-  /* <a href="https://vitejs.dev" target="_blank">
-<img src="${viteLogo}" class="logo" alt="Vite logo" />
-</a>
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-<img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-</a>
-<h1>Hello Vite!</h1>
-<div class="card">
-<button id="counter" type="button"></button>
-</div>
-<p class="read-the-docs">
-Click on the Vite logo to learn more
-</p> */
 }
