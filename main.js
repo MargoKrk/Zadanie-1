@@ -20,32 +20,34 @@ const categoriesList = document.getElementById("categories");
 let typesHTML = "";
 let categoriesHTML = "";
 
-Promise.all([types$, categories$]).then((values) => {
-  values[0].sort(function (a, b) {
+Promise.all([types$, categories$]).then(([types, categories]) => {
+  types.sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
-  values[1].sort(function (a, b) {
+  categories.sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
-  postTypes(values[0]);
-  postCategory(values[1]);
+  postTypes(types);
+  postCategory(categories);
 
   const allButtons = document.querySelectorAll(".type-button");
-  const allCategoriesCard = document.querySelectorAll(".categoryCard");
+  // const allCategoriesCard = document.querySelectorAll(".categoryCard");
 
   allButtons.forEach((currentButton) => {
     currentButton.addEventListener("click", function (e) {
       currentButton.classList.toggle("selected");
 
-      let filterTarget = e.target.dataset.filter;
+      const filterTarget = e.target.dataset.filter;
 
-      let newValue = values[1].filter((elem) => {
+      const newValue = categories.filter((elem) => {
         console.log(elem);
 
         return elem.type == filterTarget;
       });
 
       console.log(newValue);
+
+      postCategory(newValue);
     });
   });
 });
@@ -58,6 +60,8 @@ function postTypes(types) {
 }
 
 function postCategory(categories) {
+  categoriesList.innerHTML = "";
+
   categories.forEach((category) => {
     categoriesHTML = `<div class="categoryCard" data-filter="${category.type}">
     <img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
