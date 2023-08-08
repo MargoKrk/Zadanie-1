@@ -55,6 +55,17 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
       postCategory(filtredCategory);
     });
   });
+
+  const vegeSwitch = document.getElementById("vege-switch");
+  console.log(vegeSwitch);
+
+  vegeSwitch.addEventListener("click", function () {
+    const vegeCategories = categories.filter((elem) => {
+      return elem.type != "MEAT" && elem.type != "COOKED_MEATS";
+    });
+
+    postCategory(vegeCategories);
+  });
 });
 
 function postTypes(types) {

@@ -42,6 +42,7 @@ body {
   text-align: left;
   border-radius: 8px;
   border: none;
+  cursor: pointer;
 }
 
 .type-button:hover {
@@ -67,6 +68,7 @@ body {
   border-radius: 13px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   transition: 0.5s;
+  cursor: pointer;
 }
 
 #vege-switch + label {
