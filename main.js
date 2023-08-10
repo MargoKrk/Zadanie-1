@@ -61,7 +61,9 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
 
   vegeSwitch.addEventListener("click", function () {
     const vegeCategories = categories.filter((elem) => {
-      return elem.type != "MEAT" && elem.type != "COOKED_MEATS";
+      return vegeSwitch.checked
+        ? elem.type != "MEAT" && elem.type != "COOKED_MEATS"
+        : true;
     });
 
     postCategory(vegeCategories);
