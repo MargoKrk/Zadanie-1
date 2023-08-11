@@ -5,7 +5,8 @@ document.querySelector("#app").innerHTML = `
   <div class="content">
     <div class="typesCard">
       <h2>Typy</h2>
-      <div id="typesList"></div>
+      <div id="typesList">
+      <button class="type-button selected" id="ALL_TYPES" data-filter="ALL">Wszystkie</button></div>
       <div class="checkbox-div">
       <input type="checkbox" id="vege-switch">
       <label for="vege">Vege only</label>
@@ -36,6 +37,7 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
 
   const allButtons = document.querySelectorAll(".type-button");
   const allCategoriesCard = document.querySelectorAll(".categoryCard");
+  const allTypesButton = document.getElementById("ALL_TYPES");
 
   allButtons.forEach((currentButton) => {
     currentButton.addEventListener("click", (e) => {
@@ -54,6 +56,10 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
 
       postCategory(filtredCategory);
     });
+  });
+
+  allTypesButton.addEventListener("click", () => {
+    postCategory(categories);
   });
 
   allCategoriesCard.forEach((currentCategoryCard) => {
