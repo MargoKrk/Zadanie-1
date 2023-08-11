@@ -2,21 +2,21 @@ import "./css/style.css";
 import { types$, categories$, TEST } from "./js/base";
 
 document.querySelector("#app").innerHTML = `
-  <div class="content">
-    <div class="typesCard">
-      <h2>Typy</h2>
-      <div id="typesList">
-      <button class="type-button selected" id="ALL_TYPES" data-filter="ALL">Wszystkie</button></div>
-      <div class="checkbox-div">
-      <input type="checkbox" id="vege-switch">
-      <label for="vege">Vege only</label>
-      </div>
-    </div>
-    <div class="categoriesCards">
-      <h2>Kategorie</h2>
-      <div id="categories"></div>
-    </div>
-  </div>
+<div class="content">
+ <div class="typesCard">
+ <h2>Typy</h2>
+<div id="typesList">
+ <button class="type-button selected" id="ALL_TYPES" data-filter="ALL">Wszystkie</button></div>
+ <div class="checkbox-div">
+ <input type="checkbox" id="vege-switch">
+ <label for="vege">Vege only</label>
+ </div>
+ </div>
+ <div class="categoriesCards">
+ <h2>Kategorie</h2>
+ <div id="categories"></div>
+ </div>
+ </div>
 `;
 
 const typesList = document.getElementById("typesList");
@@ -37,6 +37,7 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
 
   const allButtons = document.querySelectorAll(".type-button");
   const allCategoriesCard = document.querySelectorAll(".categoryCard");
+  const vegeSwitch = document.getElementById("vege-switch");
   const allTypesButton = document.getElementById("ALL_TYPES");
 
   allButtons.forEach((currentButton) => {
@@ -50,46 +51,65 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
         e.target.classList.add("selected");
       }
 
-      const filtredCategory = categories.filter((elem) => {
+      const filtredCategories = categories.filter((elem) => {
         return elem.type === filterTarget;
       });
 
-      postCategory(filtredCategory);
+      postCategory(filtredCategories);
+
+      const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
+
+      filtredCategoriesCard.forEach((currentCategory) => {
+        query(currentCategory);
+      });
     });
   });
 
   allTypesButton.addEventListener("click", () => {
     postCategory(categories);
-  });
 
-  allCategoriesCard.forEach((currentCategoryCard) => {
-    currentCategoryCard.addEventListener("click", () => {
-      fetch(TEST).then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw Error(console.log("Brak informacji do wyświetlenia"));
-      });
+    const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
+
+    filtredCategoriesCard.forEach((currentCategory) => {
+      query(currentCategory);
     });
   });
 
-  const vegeSwitch = document.getElementById("vege-switch");
+  allCategoriesCard.forEach((currentCategory) => {
+    query(currentCategory);
+  });
 
   vegeSwitch.addEventListener("click", function () {
-    const vegeCategories = categories.filter((elem) => {
-      if (vegeSwitch.checked) {
-        document.querySelector(".selected").classList.remove("selected");
-      } else {
-        allTypesButton.classList.add("selected");
-      }
+    if (vegeSwitch.checked) {
+      document.querySelector(".selected").classList.remove("selected");
+    } else {
+      allTypesButton.classList.add("selected");
+    }
 
+    const vegeCategories = categories.filter((elem) => {
       return vegeSwitch.checked
         ? elem.type != "MEAT" && elem.type != "COOKED_MEATS"
         : true;
     });
 
     postCategory(vegeCategories);
+
+    const vegeAllCategories = document.querySelectorAll(".categoryCard");
+    vegeAllCategories.forEach((currentCategory) => {
+      query(currentCategory);
+    });
   });
+
+  function query(element) {
+    element.addEventListener("click", () => {
+      fetch(TEST).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw Error(alert("Brak informacji do wyświetlenia"));
+      });
+    });
+  }
 });
 
 function postTypes(types) {
@@ -104,9 +124,9 @@ function postCategory(categories) {
 
   categories.forEach((category) => {
     categoriesHTML = `<div class="categoryCard" data-filter="${category.type}">
-    <img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
-    <p>${category.name}</p>
-    </div>`;
+<img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
+<p>${category.name}</p>
+</div>`;
     categoriesList.innerHTML += categoriesHTML;
   });
 }
