@@ -1,5 +1,5 @@
 import "./css/style.css";
-import { types$, categories$ } from "./js/base";
+import { types$, categories$, TEST } from "./js/base";
 
 document.querySelector("#app").innerHTML = `
   <div class="content">
@@ -24,7 +24,7 @@ const categoriesList = document.getElementById("categories");
 let typesHTML = "";
 let categoriesHTML = "";
 
-Promise.all([types$, categories$]).then(([types, categories]) => {
+Promise.all([types$, categories$]).then(([types, categories, test]) => {
   types.sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
@@ -35,10 +35,10 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
   postCategory(categories);
 
   const allButtons = document.querySelectorAll(".type-button");
-  // const allCategoriesCard = document.querySelectorAll(".categoryCard");
+  const allCategoriesCard = document.querySelectorAll(".categoryCard");
 
   allButtons.forEach((currentButton) => {
-    currentButton.addEventListener("click", function (e) {
+    currentButton.addEventListener("click", (e) => {
       const filterTarget = e.target.dataset.filter;
 
       if (!document.querySelector(".selected")) {
@@ -56,8 +56,18 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
     });
   });
 
+  allCategoriesCard.forEach((currentCategoryCard) => {
+    currentCategoryCard.addEventListener("click", () => {
+      fetch(TEST).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw Error(console.log("Brak informacji do wyświetlenia"));
+      });
+    });
+  });
+
   const vegeSwitch = document.getElementById("vege-switch");
-  console.log(vegeSwitch);
 
   vegeSwitch.addEventListener("click", function () {
     const vegeCategories = categories.filter((elem) => {
