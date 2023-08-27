@@ -39,8 +39,8 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
   const allCategoriesCard = document.querySelectorAll(".categoryCard");
   const vegeSwitch = document.getElementById("vege-switch");
   const allTypesButton = document.getElementById("ALL_TYPES");
-  // const meatButton = document.getElementById("MEAT");
-  // const cookedMeatButton = document.getElementById("COOKED_MEATS");
+  const meatButton = document.getElementById("MEAT");
+  const cookedMeatButton = document.getElementById("COOKED_MEATS");
 
   allButtons.forEach((currentButton) => {
     currentButton.addEventListener("click", (e) => {
@@ -86,6 +86,9 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
     if (vegeSwitch.checked) {
       document.querySelector(".selected").classList.remove("selected");
     } else {
+      if (document.querySelector(".selected")) {
+        document.querySelector(".selected").classList.remove("selected");
+      }
       allTypesButton.classList.add("selected");
     }
 
@@ -94,6 +97,9 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
         ? elem.type != "MEAT" && elem.type != "COOKED_MEATS"
         : true;
     });
+
+    removeCheckbox(meatButton, vegeSwitch);
+    removeCheckbox(cookedMeatButton, vegeSwitch);
 
     postCategory(vegeCategories);
 
@@ -118,5 +124,13 @@ function postCategory(categories) {
     <img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
     <p>${category.name}</p>
     </div>`;
+  });
+}
+
+function removeCheckbox(button, element) {
+  button.addEventListener("click", function () {
+    if (element.checked) {
+      element.checked = false;
+    }
   });
 }
