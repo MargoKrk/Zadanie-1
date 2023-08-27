@@ -1,31 +1,31 @@
 import "./css/style.css";
-import { types$, categories$, TEST } from "./js/base";
+import { types$, categories$, categoryQuery } from "./js/base";
 
 document.querySelector("#app").innerHTML = `
-<div class="content">
- <div class="typesCard">
- <h2>Typy</h2>
-<div id="typesList">
- <button class="type-button selected" id="ALL_TYPES" data-filter="ALL">Wszystkie</button></div>
- <div class="checkbox-div">
- <input type="checkbox" id="vege-switch">
- <label for="vege">Vege only</label>
- </div>
- </div>
- <div class="categoriesCards">
- <h2>Kategorie</h2>
- <div id="categories"></div>
- </div>
- </div>
+    <div class="content">
+    <div class="typesCard">
+      <h2>Typy</h2>
+      <div id="typesList">
+        <button class="type-button selected" id="ALL_TYPES" data-filter="ALL">
+          Wszystkie
+        </button>
+      </div>
+      <div class="checkbox-div">
+        <input type="checkbox" id="vege-switch" />
+        <label for="vege">Vege only</label>
+      </div>
+    </div>
+    <div class="categoriesCards">
+      <h2>Kategorie</h2>
+      <div id="categories"></div>
+    </div>
+    </div>
 `;
 
 const typesList = document.getElementById("typesList");
 const categoriesList = document.getElementById("categories");
 
-let typesHTML = "";
-let categoriesHTML = "";
-
-Promise.all([types$, categories$]).then(([types, categories, test]) => {
+Promise.all([types$, categories$]).then(([types, categories]) => {
   types.sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
@@ -39,6 +39,8 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
   const allCategoriesCard = document.querySelectorAll(".categoryCard");
   const vegeSwitch = document.getElementById("vege-switch");
   const allTypesButton = document.getElementById("ALL_TYPES");
+  // const meatButton = document.getElementById("MEAT");
+  // const cookedMeatButton = document.getElementById("COOKED_MEATS");
 
   allButtons.forEach((currentButton) => {
     currentButton.addEventListener("click", (e) => {
@@ -48,6 +50,7 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
         e.target.classList.add("selected");
       } else {
         document.querySelector(".selected").classList.remove("selected");
+        vegeSwitch.checked.remove;
         e.target.classList.add("selected");
       }
 
@@ -60,7 +63,7 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
       const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
 
       filtredCategoriesCard.forEach((currentCategory) => {
-        query(currentCategory);
+        categoryQuery(currentCategory);
       });
     });
   });
@@ -71,12 +74,12 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
     const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
 
     filtredCategoriesCard.forEach((currentCategory) => {
-      query(currentCategory);
+      categoryQuery(currentCategory);
     });
   });
 
   allCategoriesCard.forEach((currentCategory) => {
-    query(currentCategory);
+    categoryQuery(currentCategory);
   });
 
   vegeSwitch.addEventListener("click", function () {
@@ -96,26 +99,14 @@ Promise.all([types$, categories$]).then(([types, categories, test]) => {
 
     const vegeAllCategories = document.querySelectorAll(".categoryCard");
     vegeAllCategories.forEach((currentCategory) => {
-      query(currentCategory);
+      categoryQuery(currentCategory);
     });
   });
-
-  function query(element) {
-    element.addEventListener("click", () => {
-      fetch(TEST).then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw Error(alert("Brak informacji do wyświetlenia"));
-      });
-    });
-  }
 });
 
 function postTypes(types) {
   types.forEach((type) => {
-    typesHTML = `<button class="type-button" id="${type.id}" data-filter="${type.id}">${type.name}</button>`;
-    typesList.innerHTML += typesHTML;
+    typesList.innerHTML += `<button class="type-button" id="${type.id}" data-filter="${type.id}">${type.name}</button>`;
   });
 }
 
@@ -123,10 +114,9 @@ function postCategory(categories) {
   categoriesList.innerHTML = "";
 
   categories.forEach((category) => {
-    categoriesHTML = `<div class="categoryCard" data-filter="${category.type}">
-<img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
-<p>${category.name}</p>
-</div>`;
-    categoriesList.innerHTML += categoriesHTML;
+    categoriesList.innerHTML += `<div class="categoryCard" data-filter="${category.type}">
+    <img src="${category.iconUrl}" alt="${category.name}" width="64" height="64">
+    <p>${category.name}</p>
+    </div>`;
   });
 }

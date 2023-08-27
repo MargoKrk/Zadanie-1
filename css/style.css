@@ -110,5 +110,5 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: alias;
+  cursor: pointer;
 }
