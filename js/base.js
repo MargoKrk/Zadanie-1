@@ -28,20 +28,25 @@ export const categories$ = fetch(CATEGORIES_HOST)
     console.error(error);
   });
 
-export function categoryQuery(element) {
-  element.addEventListener("click", () => {
-    fetch(SINGLE_CATEGORY_HOST)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw Error(
-          `${response.status} - ${response.statusText}`,
-          alert("Brak informacji o produkcie")
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
+
+export function categoryQuery(selector){
+  selector.forEach((currentCategory) => {
+    currentCategory.addEventListener("click", () => {
+      fetch(SINGLE_CATEGORY_HOST)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw Error(
+            `${response.status} - ${response.statusText}`,
+            alert("Brak informacji o produkcie")
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  
+  })
 }
+

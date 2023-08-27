@@ -50,7 +50,6 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
         e.target.classList.add("selected");
       } else {
         document.querySelector(".selected").classList.remove("selected");
-        vegeSwitch.checked.remove;
         e.target.classList.add("selected");
       }
 
@@ -62,9 +61,7 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
 
       const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
 
-      filtredCategoriesCard.forEach((currentCategory) => {
-        categoryQuery(currentCategory);
-      });
+      categoryQuery(filtredCategoriesCard);
     });
   });
 
@@ -73,24 +70,15 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
 
     const filtredCategoriesCard = document.querySelectorAll(".categoryCard");
 
-    filtredCategoriesCard.forEach((currentCategory) => {
-      categoryQuery(currentCategory);
-    });
+    categoryQuery(filtredCategoriesCard);
   });
 
-  allCategoriesCard.forEach((currentCategory) => {
-    categoryQuery(currentCategory);
-  });
+  categoryQuery(allCategoriesCard);
+  removeCheckbox(meatButton, vegeSwitch);
+  removeCheckbox(cookedMeatButton, vegeSwitch);
 
   vegeSwitch.addEventListener("click", function () {
-    if (vegeSwitch.checked) {
-      document.querySelector(".selected").classList.remove("selected");
-    } else {
-      if (document.querySelector(".selected")) {
-        document.querySelector(".selected").classList.remove("selected");
-      }
-      allTypesButton.classList.add("selected");
-    }
+    vegeSwitchCondition(vegeSwitch, allTypesButton);
 
     const vegeCategories = categories.filter((elem) => {
       return vegeSwitch.checked
@@ -98,17 +86,14 @@ Promise.all([types$, categories$]).then(([types, categories]) => {
         : true;
     });
 
-    removeCheckbox(meatButton, vegeSwitch);
-    removeCheckbox(cookedMeatButton, vegeSwitch);
-
     postCategory(vegeCategories);
 
     const vegeAllCategories = document.querySelectorAll(".categoryCard");
-    vegeAllCategories.forEach((currentCategory) => {
-      categoryQuery(currentCategory);
-    });
+    categoryQuery(vegeAllCategories);
   });
 });
+
+/* Funckje */
 
 function postTypes(types) {
   types.forEach((type) => {
@@ -133,4 +118,15 @@ function removeCheckbox(button, element) {
       element.checked = false;
     }
   });
+}
+
+function vegeSwitchCondition(switchSelector, buttonsSelector) {
+  if (switchSelector.checked) {
+    document.querySelector(".selected").classList.remove("selected");
+  } else {
+    if (document.querySelector(".selected")) {
+      document.querySelector(".selected").classList.remove("selected");
+    }
+    buttonsSelector.classList.add("selected");
+  }
 }
